@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klarframe Partner-Portal · Technisches Onboarding</title>
+  <style>
+    :root {
+      --bg: #070706;
+      --panel: #11100d;
+      --panel-2: #171510;
+      --line: rgba(218, 174, 93, 0.26);
+      --gold: #d9ac57;
+      --gold-2: #f1c66f;
+      --text: #f4f0e8;
+      --muted: #b7b1a7;
+      --soft: #81786b;
+      --green: #8fd19e;
+      --red: #e58d8d;
+      --shadow: 0 22px 70px rgba(0,0,0,.45);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(217,172,87,.18), transparent 28%),
+        radial-gradient(circle at 90% 12%, rgba(217,172,87,.08), transparent 26%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.62;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(7,7,6,.78);
+      border-bottom: 1px solid rgba(217,172,87,.18);
+    }
+
+    .nav {
+      height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      border-radius: 6px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .navlinks a:hover { color: var(--gold-2); }
+
+    .hero {
+      min-height: 78vh;
+      display: grid;
+      align-items: center;
+      padding: 84px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 9% 0 auto auto;
+      width: 520px;
+      height: 520px;
+      border: 1px solid rgba(217,172,87,.18);
+      border-radius: 50%;
+      transform: translateX(35%);
+      opacity: .7;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--gold-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      background: rgba(217,172,87,.06);
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 24px 0 22px;
+      font-size: clamp(48px, 8vw, 104px);
+      line-height: .92;
+      letter-spacing: -0.07em;
+    }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 24px);
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      color: #15100a;
+      border-color: transparent;
+    }
+
+    .confidential {
+      color: var(--soft);
+      margin-top: 36px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    section { padding: 74px 0; }
+
+    .section-head {
+      margin-bottom: 28px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 62px);
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+    }
+
+    h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+    }
+
+    p { margin: 0 0 16px; }
+
+    p:last-child { margin-bottom: 0; }
+
+    .lead {
+      max-width: 880px;
+      color: var(--muted);
+      font-size: 19px;
+    }
+
+    .grid { display: grid; gap: 20px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      border: 1px solid rgba(217,172,87,.18);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .card.gold {
+      background: linear-gradient(135deg, rgba(217,172,87,.22), rgba(217,172,87,.06));
+    }
+
+    .card p,
+    .card li,
+    .muted {
+      color: var(--muted);
+    }
+
+    ul, ol {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .toc {
+      display: grid;
+      gap: 10px;
+    }
+
+    .toc-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 48px;
+      gap: 18px;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px dashed rgba(217,172,87,.18);
+    }
+
+    .toc-row:last-child { border-bottom: 0; }
+
+    .toc-num, .page-num {
+      color: var(--gold);
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chapter {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 13px;
+      font-weight: 900;
+      margin: 22px 0 6px;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(217,172,87,.12);
+      border: 1px solid var(--line);
+      color: var(--gold-2);
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+      counter-reset: step;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid rgba(217,172,87,.16);
+      border-radius: 20px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .step::before {
+      content: counter(step);
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(217,172,87,.18);
+    }
+
+    th, td {
+      padding: 15px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(217,172,87,.12);
+    }
+
+    th {
+      color: var(--gold-2);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      background: rgba(217,172,87,.07);
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    td:first-child {
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .price {
+      white-space: nowrap;
+      color: var(--gold-2);
+      font-weight: 900;
+    }
+
+    .status-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid rgba(217,172,87,.14);
+      border-radius: 18px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .status strong { color: var(--gold-2); }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .process-card {
+      position: relative;
+      padding: 24px 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(217,172,87,.16);
+      min-height: 160px;
+    }
+
+    .process-card span {
+      display: inline-grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #18120b;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .notice {
+      border-left: 4px solid var(--gold);
+      background: rgba(217,172,87,.08);
+      border-radius: 18px;
+      padding: 22px;
+      color: var(--muted);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 12px;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(217,172,87,.13);
+    }
+
+    .check:last-child { border-bottom: 0; }
+    .check::before {
+      content: "✓";
+      color: var(--green);
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .footer {
+      padding: 90px 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(217,172,87,.16), transparent 30%),
+        #050504;
+      border-top: 1px solid rgba(217,172,87,.18);
+    }
+
+    .footer h2 {
+      max-width: 760px;
+    }
+
+    @media (max-width: 900px) {
+      .navlinks { display: none; }
+      .grid.two, .grid.three, .grid.four, .process { grid-template-columns: 1fr; }
+      .toc-row { grid-template-columns: 44px 1fr; }
+      .page-num { display: none; }
+      .status { grid-template-columns: 1fr; }
+      section { padding: 54px 0; }
+      .hero { min-height: auto; padding: 68px 0; }
+    }
+
+    @media print {
+      .topbar { position: static; }
+      body { background: #070706; }
+      .card, table, .step, .status, .process-card { box-shadow: none; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#start"><span class="logo">KF</span><span>Klarframe Partner Portal</span></a>
+      <nav class="navlinks">
+        <a href="#inhalt">Inhalt</a>
+        <a href="#grundlagen">Grundlagen</a>
+        <a href="#crm">Mini-CRM</a>
+        <a href="#konfigurator">Konfigurator</a>
+        <a href="#support">Support</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero" id="start">
+    <div class="wrap">
+      <span class="kicker">Ausgabe 2026 · Nur für Vertriebspartner</span>
+      <h1>Technisches Onboarding für das Klarframe Partner-Portal</h1>
+      <p>Ihr praktischer Leitfaden vom ersten Login über das Anlegen von Kunden bis zur fertigen Konfiguration, Anfrage und Support-Bearbeitung.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#inhalt">Leitfaden starten</a>
+        <a class="btn" href="#best-practices">Best Practices ansehen</a>
+      </div>
+      <div class="confidential">Vertraulich · Klarframe SL</div>
+    </div>
+  </header>
+
+  <main>
+    <section id="inhalt" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">00 · Inhalt</span>
+        <h2>Was Sie in diesem Leitfaden finden</h2>
+        <p class="lead">Dieser Leitfaden führt Sie Schritt für Schritt durch das Partner-Portal: Anmeldung, Dashboard, Kundenverwaltung, Konfiguration und Support.</p>
+      </div>
+
+      <div class="card">
+        <div class="chapter">Grundlagen</div>
+        <div class="toc">
+          <a class="toc-row" href="#ueberblick"><span class="toc-num">01</span><span>Das Partner-Portal auf einen Blick</span><span class="page-num">03</span></a>
+          <a class="toc-row" href="#dashboard"><span class="toc-num">02</span><span>Zugang, Anmeldung & Dashboard</span><span class="page-num">04</span></a>
+          <a class="toc-row" href="#navigation"><span class="toc-num">03</span><span>Navigation & Sprache</span><span class="page-num">05</span></a>
+        </div>
+
+        <div class="chapter">Mini-CRM — Kunden verwalten</div>
+        <div class="toc">
+          <a class="toc-row" href="#kunden-anlegen"><span class="toc-num">04</span><span>Kunden anlegen</span><span class="page-num">06</span></a>
+          <a class="toc-row" href="#kundenakte"><span class="toc-num">05</span><span>Die Kundenakte</span><span class="page-num">07</span></a>
+          <a class="toc-row" href="#pipeline"><span class="toc-num">06</span><span>Sales-Status & Pipeline</span><span class="page-num">08</span></a>
+        </div>
+
+        <div class="chapter">Konfigurator — Lösungen modellieren</div>
+        <div class="toc">
+          <a class="toc-row" href="#konfigurator"><span class="toc-num">07</span><span>Der Konfigurator im Überblick</span><span class="page-num">09</span></a>
+          <a class="toc-row" href="#schritt1"><span class="toc-num">08</span><span>Schritt 1 — Wer & Wofür</span><span class="page-num">10</span></a>
+          <a class="toc-row" href="#schritt2"><span class="toc-num">09</span><span>Schritt 2 — Lösungen</span><span class="page-num">11</span></a>
+          <a class="toc-row" href="#schritt3"><span class="toc-num">10</span><span>Schritt 3 — Extras</span><span class="page-num">12</span></a>
+          <a class="toc-row" href="#schritt4"><span class="toc-num">11</span><span>Schritt 4 — Paket & Anfrage</span><span class="page-num">13</span></a>
+          <a class="toc-row" href="#absenden"><span class="toc-num">12</span><span>Nach dem Absenden</span><span class="page-num">14</span></a>
+        </div>
+
+        <div class="chapter">Support & Anhang</div>
+        <div class="toc">
+          <a class="toc-row" href="#support"><span class="toc-num">13</span><span>Support-Tickets — Übersicht</span><span class="page-num">15</span></a>
+          <a class="toc-row" href="#ticket-erstellen"><span class="toc-num">14</span><span>Ticket erstellen</span><span class="page-num">16</span></a>
+          <a class="toc-row" href="#best-practices"><span class="toc-num">15</span><span>Best Practices für Partner</span><span class="page-num">17</span></a>
+          <a class="toc-row" href="#faq"><span class="toc-num">16</span><span>Häufige Fragen</span><span class="page-num">18</span></a>
+          <a class="toc-row" href="#glossar"><span class="toc-num">17</span><span>Kurzreferenz & Glossar</span><span class="page-num">19</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="grundlagen" class="wrap">
+      <div class="section-head" id="ueberblick">
+        <span class="eyebrow">01 · Grundlagen</span>
+        <h2>Das Partner-Portal auf einen Blick</h2>
+        <p class="lead">Das Klarframe Partner-Portal ist Ihre zentrale Arbeitsoberfläche. Es bündelt drei Werkzeuge, die Ihren Vertriebsalltag abdecken — vom ersten Kontakt bis zur abgesendeten Anfrage.</p>
+      </div>
+
+      <div class="grid three">
+        <div class="card">
+          <div class="feature-icon">👥</div>
+          <h3>Mini-CRM</h3>
+          <p>Kunden verwalten, Kontaktdaten pflegen und den Sales-Status entlang der Pipeline im Blick behalten.</p>
+        </div>
+        <div class="card gold">
+          <div class="feature-icon">🧰</div>
+          <h3>Konfigurator</h3>
+          <p>Pro Kunde in vier Schritten ein passendes Paket aus Lösungen und Extras zusammenstellen und direkt an Klarframe senden.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">🎯</div>
+          <h3>Support</h3>
+          <p>Fragen oder Anliegen strukturiert als Ticket einreichen — inklusive Kategorie, Betreff und nachvollziehbarem Status.</p>
+        </div>
+      </div>
+
+      <div class="notice" style="margin-top:22px;">
+        Die Kapitel folgen dem Weg, den Sie im Portal gehen: anmelden, Kunden anlegen, Konfiguration erstellen und absenden. Jeder Partner arbeitet ausschließlich in seiner eigenen Region und sieht nur die eigenen Kunden, Konfigurationen und Tickets.
+      </div>
+    </section>
+
+    <section id="dashboard" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">02 · Grundlagen</span>
+        <h2>Zugang, Anmeldung & Dashboard</h2>
+        <p class="lead">Sie erhalten Ihren persönlichen Zugang von Klarframe. Nach der Anmeldung landen Sie direkt auf dem Dashboard — der Startseite Ihrer Region.</p>
+      </div>
+
+      <div class="grid three">
+        <div class="card">
+          <h3>1 · Begrüßung & Region</h3>
+          <p>Oben sehen Sie „Willkommen“ mit Ihrem Partnernamen, Ihrer Region und der Gesamtzahl Ihrer Kunden.</p>
+        </div>
+        <div class="card">
+          <h3>2 · Meine Kunden</h3>
+          <p>Der zentrale Bereich listet alle Ihre Kunden. Solange noch keiner angelegt ist, sehen Sie einen Hinweis als Startpunkt.</p>
+        </div>
+        <div class="card">
+          <h3>3 · Neuer Kunde</h3>
+          <p>Über den Button „+ Neuer Kunde“ starten Sie das Anlegen eines neuen Kundeneintrags.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="navigation" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">03 · Grundlagen</span>
+        <h2>Navigation & Sprache</h2>
+        <p class="lead">Die Kopfzeile begleitet Sie auf jeder Seite. Von hier erreichen Sie alle Bereiche und stellen die Sprache um.</p>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Element</th><th>Funktion</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>KF · Partner Portal</td><td>Das Logo links führt jederzeit zurück zum Dashboard.</td></tr>
+          <tr><td>DE · EN · ES</td><td>Sprachumschalter. Die aktive Sprache ist gold hinterlegt. Die Wahl gilt für die Oberfläche und für die Konfigurationsansicht Ihrer Kunden.</td></tr>
+          <tr><td>Pipeline</td><td>Gesammelte Sicht auf alle Kunden, sortiert nach Sales-Status.</td></tr>
+          <tr><td>Support</td><td>Übersicht Ihrer Support-Tickets und Einstieg zum Erstellen neuer Tickets.</td></tr>
+          <tr><td>Partner · Region</td><td>Zeigt Ihren Partnernamen und Ihre zugeordnete Region.</td></tr>
+          <tr><td>Abmelden</td><td>Beendet Ihre Sitzung sicher.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="notice" style="margin-top:22px;">
+        Wichtig: Die Sprachwahl wirkt sich auch auf die Konfiguration aus, die Ihr Kunde später sieht. Prüfen Sie vor dem Versand, ob DE, EN oder ES passend eingestellt ist.
+      </div>
+    </section>
+
+    <section id="crm" class="wrap">
+      <div class="section-head" id="kunden-anlegen">
+        <span class="eyebrow">04 · Mini-CRM</span>
+        <h2>Kunden anlegen</h2>
+        <p class="lead">Jede Zusammenarbeit beginnt mit einem Kundeneintrag. Das Anlegen dauert weniger als eine Minute und schafft die Grundlage für alle weiteren Schritte.</p>
+      </div>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Ablauf</h3>
+          <div class="steps">
+            <div class="step"><div><strong>Auf dem Dashboard starten.</strong><br><span class="muted">Klicken Sie oben rechts auf „+ Neuer Kunde“.</span></div></div>
+            <div class="step"><div><strong>Stammdaten erfassen.</strong><br><span class="muted">Füllen Sie die Felder aus. Diese Angaben werden später automatisch in jede Konfiguration übernommen.</span></div></div>
+            <div class="step"><div><strong>Speichern.</strong><br><span class="muted">Der Kunde erscheint sofort in „Meine Kunden“ und die Zählung oben aktualisiert sich.</span></div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Felder & Hinweise</h3>
+          <table>
+            <thead><tr><th>Feld</th><th>Hinweis</th></tr></thead>
+            <tbody>
+              <tr><td>Firma</td><td>Name des Unternehmens. Erscheint als Titel der Kundenakte.</td></tr>
+              <tr><td>Ansprechpartner</td><td>Ihre Hauptkontaktperson, zum Beispiel „Herr Vogel“.</td></tr>
+              <tr><td>E-Mail</td><td>Wird für die Konfiguration und Rückmeldungen genutzt.</td></tr>
+              <tr><td>Telefon</td><td>Optionale Durchwahl für kurze Rückfragen.</td></tr>
+              <tr><td>Branche</td><td>Zum Beispiel Hotellerie, Gastronomie oder Logistik. Hilft beim passenden Zuschnitt der Lösungen.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="notice" style="margin-top:22px;">
+        Saubere Stammdaten zahlen sich aus: Je vollständiger der Eintrag, desto schneller und fehlerfreier läuft später die Konfiguration.
+      </div>
+    </section>
+
+    <section id="kundenakte" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">05 · Mini-CRM</span>
+        <h2>Die Kundenakte</h2>
+        <p class="lead">Mit einem Klick auf einen Kunden öffnen Sie dessen Akte. Hier steuern Sie den Sales-Status und starten neue Konfigurationen.</p>
+      </div>
+
+      <div class="grid four">
+        <div class="card"><h3>Kopfbereich</h3><p>Firmenname, Ansprechpartner, E-Mail, Telefon und Branche auf einen Blick.</p></div>
+        <div class="card"><h3>Sales-Status</h3><p>Setzen Sie den aktuellen Stand per Klick — von „Neukunde“ bis „Closed Won/Lost“.</p></div>
+        <div class="card"><h3>Neue Konfiguration</h3><p>Startet den vierstufigen Konfigurator für genau diesen Kunden.</p></div>
+        <div class="card"><h3>Historie</h3><p>Alle erstellten Konfigurationen werden gesammelt und bleiben nachvollziehbar.</p></div>
+      </div>
+    </section>
+
+    <section id="pipeline" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">06 · Mini-CRM</span>
+        <h2>Sales-Status & Pipeline</h2>
+        <p class="lead">Der Sales-Status zeigt, wo ein Kunde im Verkaufsprozess steht. Über den Menüpunkt Pipeline sehen Sie alle Kunden gebündelt nach Status.</p>
+      </div>
+
+      <div class="status-list">
+        <div class="status"><strong>Neukunde</strong><span class="muted">Frisch angelegt. Erstkontakt steht noch aus oder hat gerade begonnen.</span></div>
+        <div class="status"><strong>Interessent</strong><span class="muted">Interesse signalisiert. Ein erstes Gespräch hat stattgefunden.</span></div>
+        <div class="status"><strong>Warten auf Feedback</strong><span class="muted">Der Ball liegt beim Kunden. Sie haben informiert und warten auf Rückmeldung.</span></div>
+        <div class="status"><strong>In Verhandlung</strong><span class="muted">Heiße Phase. Konditionen, Laufzeit oder Umfang werden abgestimmt.</span></div>
+        <div class="status"><strong>Closed Won</strong><span class="muted">Gewonnen. Der Kunde hat sich entschieden — Abschluss erzielt.</span></div>
+        <div class="status"><strong>Closed Lost</strong><span class="muted">Verloren. Aktuell kein Abschluss. Bleibt dokumentiert für spätere Anläufe.</span></div>
+      </div>
+
+      <div class="notice" style="margin-top:22px;">
+        Empfehlung: Pflegen Sie den Status nach jedem Kontakt. Eine gepflegte Pipeline schafft Klarheit, macht Erfolge sichtbar und hilft bei der täglichen Priorisierung.
+      </div>
+    </section>
+
+    <section id="konfigurator" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">07 · Konfigurator</span>
+        <h2>Der Konfigurator im Überblick</h2>
+        <p class="lead">Der Konfigurator führt Sie in vier klaren Schritten von den Kundendaten zur fertigen, absendbaren Anfrage. Sie starten ihn aus der Kundenakte über „Neue Konfiguration“.</p>
+      </div>
+
+      <div class="process">
+        <div class="process-card"><span>1</span><h3>Wer & Wofür</h3><p class="muted">Stammdaten bestätigen.</p></div>
+        <div class="process-card"><span>2</span><h3>Lösungen</h3><p class="muted">Produkte auswählen.</p></div>
+        <div class="process-card"><span>3</span><h3>Extras</h3><p class="muted">Zusätze ergänzen.</p></div>
+        <div class="process-card"><span>4</span><h3>Paket</h3><p class="muted">Laufzeit wählen und Anfrage absenden.</p></div>
+      </div>
+
+      <div class="notice" style="margin-top:22px;">
+        Oben auf jeder Stufe sehen Sie die Fortschrittsanzeige. Abgeschlossene Schritte werden mit einem Häkchen markiert, der aktuelle Schritt leuchtet gold. Über „Zurück“ können Sie jederzeit einen Schritt zurückgehen, ohne Eingaben zu verlieren.
+      </div>
+    </section>
+
+    <section id="schritt1" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">08 · Konfigurator</span>
+        <h2>Schritt 1 — Wer & Wofür</h2>
+        <p class="lead">Der erste Schritt fasst zusammen, für wen Sie konfigurieren. Die Felder sind aus der Kundenakte bereits vorausgefüllt.</p>
+      </div>
+
+      <div class="card">
+        <p>Enthalten sind Firma, Ansprechpartner, E-Mail, Telefon, Branche sowie der zugeordnete Partner und die Region. Prüfen Sie die Daten kurz und wählen Sie oben rechts bei Bedarf die Sprache DE, EN oder ES. Mit „Weiter“ gelangen Sie zu den Lösungen.</p>
+      </div>
+    </section>
+
+    <section id="schritt2" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">09 · Konfigurator</span>
+        <h2>Schritt 2 — Lösungen</h2>
+        <p class="lead">Wählen Sie die Lösungen, die für den Kunden arbeiten sollen. Jede Karte zeigt Nutzenversprechen und Preis; mit „Auswählen“ wird sie Teil des Pakets. Optional aktivieren Sie eine Testphase.</p>
+      </div>
+
+      <table>
+        <thead><tr><th>Lösung</th><th>Nutzenversprechen</th><th>Preis</th></tr></thead>
+        <tbody>
+          <tr><td>Smart Websites<br><span class="muted">Website / AI Experience</span></td><td>Ihre erste Wirkung. Jede Sekunde zählt.</td><td class="price">auf Anfrage</td></tr>
+          <tr><td>Angebots-Veredler<br><span class="muted">Sales Automation</span></td><td>Kein Angebot mehr, das ungelesen bleibt.</td><td class="price">6 € / Angebot</td></tr>
+          <tr><td>Executive Meeting Concierge<br><span class="muted">Executive Assistant</span></td><td>Nie wieder ein Meeting ohne Klarheit danach.</td><td class="price">299 €/Monat</td></tr>
+          <tr><td>Video Avatare<br><span class="muted">Digital Avatar</span></td><td>Ihr Gesicht. Immer verfügbar. Immer perfekt.</td><td class="price">149 €/Monat</td></tr>
+          <tr><td>Meeting Agenten<br><span class="muted">Meeting Intelligence</span></td><td>Meetings bringen Klarheit — wenn man richtig zuhört.</td><td class="price">299 €/Monat</td></tr>
+          <tr><td>Outbound Voice Agent<br><span class="muted">Voice Agent</span></td><td>Kein Lead verloren. Kein Follow-up vergessen.</td><td class="price">149 €/Monat</td></tr>
+          <tr><td>Inbound Voice Agent<br><span class="muted">Voice Agent</span></td><td>Der erste Eindruck. Automatisch. Immer gut.</td><td class="price">249 €/Monat</td></tr>
+          <tr><td>Live Translator<br><span class="muted">Live Translation</span></td><td>Jeder Gast hört Sie in seiner Sprache.</td><td class="price">auf Anfrage</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="schritt3" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">10 · Konfigurator</span>
+        <h2>Schritt 3 — Extras</h2>
+        <p class="lead">Verfeinern Sie das Paket mit optionalen Extras. Laufende Extras werden monatlich, einige Leistungen einmalig berechnet.</p>
+      </div>
+
+      <table>
+        <thead><tr><th>Extra</th><th>Beschreibung</th><th>Preis</th></tr></thead>
+        <tbody>
+          <tr><td>Mehrsprachigkeit</td><td>EN, ES, FR, IT, TR, AR und weitere.</td><td class="price">60 €/Monat</td></tr>
+          <tr><td>CRM-Integration</td><td>HubSpot, Salesforce, Pipedrive, Zoho oder Custom-API.</td><td class="price">80 €/Monat</td></tr>
+          <tr><td>Priority Support</td><td>Reaktionszeit unter 4 Stunden.</td><td class="price">35 €/Monat</td></tr>
+          <tr><td>Custom Reporting</td><td>Individuelle KPIs und automatisierte Berichte.</td><td class="price">45 €/Monat</td></tr>
+          <tr><td>White-Label</td><td>Kein Klarframe-Branding. Vollständig in Ihrer CI.</td><td class="price">75 €/Monat</td></tr>
+          <tr><td>Team-Training</td><td>2 Stunden Workshop plus Screencast-Dokumentation.</td><td class="price">150 € einmalig</td></tr>
+          <tr><td>Custom Automatisierung</td><td>Individuelle Workflow-Erweiterung nach Maß.</td><td class="price">150 € einmalig</td></tr>
+          <tr><td>Datenmigration</td><td>Import bestehender Daten und Systemkonfiguration.</td><td class="price">200 € einmalig</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="schritt4" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">11 · Konfigurator</span>
+        <h2>Schritt 4 — Paket & Anfrage</h2>
+        <p class="lead">Im letzten Schritt wählen Sie die Laufzeit. Längere Bindung senkt den Preis — die Zusammenfassung rechnet den Rabatt automatisch ein.</p>
+      </div>
+
+      <table>
+        <thead><tr><th>Laufzeit</th><th>Rabatt</th><th>Hinweis</th></tr></thead>
+        <tbody>
+          <tr><td>3 Monate</td><td class="price">0 %</td><td>Maximale Flexibilität.</td></tr>
+          <tr><td>6 Monate</td><td class="price">−5 %</td><td>Leichter Vorteil.</td></tr>
+          <tr><td>12 Monate</td><td class="price">−10 %</td><td>Empfohlen — bestes Preis-Leistungs-Verhältnis.</td></tr>
+          <tr><td>24 Monate</td><td class="price">−20 %</td><td>Größte Ersparnis bei längster Bindung.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="notice" style="margin-top:22px;">
+        Im Feld „Notizen / Besonderheiten“ halten Sie besondere Anforderungen oder offene Fragen fest. Mit „Anfrage absenden“ geht alles gesammelt an Klarframe.
+      </div>
+    </section>
+
+    <section id="absenden" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">12 · Konfigurator</span>
+        <h2>Nach dem Absenden</h2>
+        <p class="lead">Mit dem Versand ist Ihre Arbeit im Portal abgeschlossen — ab hier übernimmt Klarframe.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step"><div><strong>Anfrage geht an Klarframe.</strong><br><span class="muted">Die vollständige Konfiguration inklusive Preis, Laufzeit und Notizen wird übermittelt.</span></div></div>
+        <div class="step"><div><strong>Konfiguration wird gespeichert.</strong><br><span class="muted">Sie erscheint in der Konfigurationshistorie des Kunden und bleibt jederzeit nachvollziehbar.</span></div></div>
+        <div class="step"><div><strong>Status aktualisieren.</strong><br><span class="muted">Setzen Sie den Sales-Status passend, zum Beispiel auf „In Verhandlung“.</span></div></div>
+        <div class="step"><div><strong>Dranbleiben.</strong><br><span class="muted">Ein sauberes Follow-up innerhalb von 72 Stunden erhöht die Abschlusswahrscheinlichkeit deutlich.</span></div></div>
+      </div>
+
+      <div class="notice" style="margin-top:22px;">
+        Sie können für denselben Kunden jederzeit weitere Konfigurationen erstellen — etwa Varianten mit unterschiedlichem Umfang oder unterschiedlicher Laufzeit. Alle Versionen bleiben in der Historie erhalten.
+      </div>
+    </section>
+
+    <section id="support" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">13 · Support</span>
+        <h2>Support-Tickets — Übersicht</h2>
+        <p class="lead">Über den Menüpunkt Support erreichen Sie Ihre Ticketübersicht. Hier sehen Sie jedes Anliegen mit Kennung, Betreff, Kategorie, Datum und Status.</p>
+      </div>
+
+      <table>
+        <thead><tr><th>Spalte</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td>Ticket-ID</td><td>Eindeutige Kennung im Format KF-JJJJMMTT-XXXXXX, zum Beispiel KF-20260616-3XG85Y. Bitte bei Rückfragen angeben.</td></tr>
+          <tr><td>Betreff & Kategorie</td><td>Kurztitel und Einordnung des Anliegens.</td></tr>
+          <tr><td>Erstellt</td><td>Datum der Einreichung.</td></tr>
+          <tr><td>Status</td><td>„Offen“ bedeutet: in Bearbeitung oder noch nicht abgeschlossen. Über „Öffnen“ sehen Sie den Verlauf.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="ticket-erstellen" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">14 · Support</span>
+        <h2>Ticket erstellen</h2>
+        <p class="lead">Über „+ Neues Ticket“ öffnen Sie das Formular. Wählen Sie eine Kategorie, geben Sie Betreff und Beschreibung ein und senden Sie das Ticket ab.</p>
+      </div>
+
+      <table>
+        <thead><tr><th>Kategorie</th><th>Wann verwenden?</th></tr></thead>
+        <tbody>
+          <tr><td>Allgemein</td><td>Allgemeine Fragen ohne klare Zuordnung.</td></tr>
+          <tr><td>Kundenbezogen</td><td>Fragen zu einem konkreten Kunden oder einer Konfiguration.</td></tr>
+          <tr><td>Produkt</td><td>Fragen zu Lösungen, Funktionen oder Preisen.</td></tr>
+          <tr><td>Technisch</td><td>Störungen, Fehler oder technische Hürden im Portal.</td></tr>
+          <tr><td>Abrechnung</td><td>Fragen zu Rechnungen, Provisionen oder Konditionen.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="best-practices" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">15 · Anhang</span>
+        <h2>Best Practices für Partner</h2>
+        <p class="lead">Diese Gewohnheiten machen die Arbeit im Portal schneller und Ihre Ergebnisse besser.</p>
+      </div>
+
+      <div class="card checklist">
+        <div class="check"><div><strong>Daten vollständig pflegen.</strong><br><span class="muted">Korrekte Stammdaten beschleunigen jede Konfiguration und vermeiden Rückfragen.</span></div></div>
+        <div class="check"><div><strong>Status sofort aktualisieren.</strong><br><span class="muted">Pflegen Sie den Sales-Status nach jedem Kontakt — Ihre Pipeline bleibt aussagekräftig.</span></div></div>
+        <div class="check"><div><strong>Sprache prüfen.</strong><br><span class="muted">Stellen Sie DE, EN oder ES passend zur Kundin oder zum Kunden ein, bevor Sie absenden.</span></div></div>
+        <div class="check"><div><strong>Laufzeit bewusst empfehlen.</strong><br><span class="muted">12 Monate sind der empfohlene Standard — gutes Verhältnis aus Preis und Bindung.</span></div></div>
+        <div class="check"><div><strong>Notizen nutzen.</strong><br><span class="muted">Halten Sie Sonderwünsche im Notizfeld fest, statt sie separat zu kommunizieren.</span></div></div>
+        <div class="check"><div><strong>Innerhalb von 72 Stunden nachfassen.</strong><br><span class="muted">Frische Informationen und gezeigte Wertschätzung erhöhen die Abschlussquote.</span></div></div>
+        <div class="check"><div><strong>Tickets präzise stellen.</strong><br><span class="muted">Eindeutige Kategorie und klarer Betreff führen zu schnelleren Antworten.</span></div></div>
+      </div>
+    </section>
+
+    <section id="faq" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">16 · Anhang</span>
+        <h2>Häufige Fragen</h2>
+        <p class="lead">Kurze Antworten auf die Fragen, die im Partneralltag am häufigsten auftauchen.</p>
+      </div>
+
+      <table>
+        <thead><tr><th>Frage</th><th>Antwort</th></tr></thead>
+        <tbody>
+          <tr><td>Sehe ich auch Kunden anderer Partner?</td><td>Nein. Sie arbeiten ausschließlich in Ihrer Region und sehen nur Ihre eigenen Kunden, Konfigurationen und Tickets.</td></tr>
+          <tr><td>Kann ich eine Konfiguration nachträglich ändern?</td><td>Erstellen Sie für Änderungen einfach eine neue Konfiguration für denselben Kunden. Alle Versionen bleiben in der Historie erhalten.</td></tr>
+          <tr><td>Was bedeutet „auf Anfrage“ bei manchen Lösungen?</td><td>Für diese Lösungen wird der Preis individuell ermittelt. Senden Sie die Konfiguration ab — Klarframe meldet sich mit einem Angebot.</td></tr>
+          <tr><td>Wie wird der Rabatt berechnet?</td><td>Automatisch über die gewählte Laufzeit: 6 Monate −5 %, 12 Monate −10 %, 24 Monate −20 %. Die Zusammenfassung zeigt den Endpreis.</td></tr>
+          <tr><td>Worin unterscheiden sich Pipeline und „Meine Kunden“?</td><td>„Meine Kunden“ listet alle Einträge. Die Pipeline bündelt dieselben Kunden gruppiert nach Sales-Status für die Priorisierung.</td></tr>
+          <tr><td>Wie schnell erhalte ich Antwort auf ein Ticket?</td><td>Das hängt von Anliegen und Kategorie ab. Mit dem Extra „Priority Support“ liegt die Reaktionszeit unter vier Stunden.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="glossar" class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">17 · Anhang</span>
+        <h2>Kurzreferenz & Glossar</h2>
+        <p class="lead">Die wichtigsten Begriffe dieses Leitfadens auf einen Blick.</p>
+      </div>
+
+      <table>
+        <thead><tr><th>Begriff</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td>Mini-CRM</td><td>Der Kundenbereich des Portals: anlegen, verwalten, Status pflegen.</td></tr>
+          <tr><td>Kundenakte</td><td>Detailseite eines Kunden mit Stammdaten, Sales-Status und Konfigurationshistorie.</td></tr>
+          <tr><td>Sales-Status</td><td>Position des Kunden im Verkaufsprozess: von Neukunde bis Closed Won/Lost.</td></tr>
+          <tr><td>Pipeline</td><td>Gesammelte Sicht aller Kunden nach Sales-Status.</td></tr>
+          <tr><td>Konfigurator</td><td>Vierstufiger Assistent: Wer & Wofür → Lösungen → Extras → Paket.</td></tr>
+          <tr><td>Lösung</td><td>Buchbares Hauptprodukt, zum Beispiel Voice Agent oder Meeting Agenten.</td></tr>
+          <tr><td>Extra</td><td>Optionale Zusatzleistung, zum Beispiel CRM-Integration oder White-Label.</td></tr>
+          <tr><td>Laufzeit</td><td>Vertragsdauer von 3, 6, 12 oder 24 Monaten mit gestaffeltem Rabatt.</td></tr>
+          <tr><td>Konfigurationshistorie</td><td>Liste aller für einen Kunden erstellten Konfigurationen.</td></tr>
+          <tr><td>Ticket-ID</td><td>Eindeutige Support-Kennung im Format KF-JJJJMMTT-XXXXXX.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="notice" style="margin-top:22px;">
+        Der rote Faden: Anmelden → Kunde anlegen → Status pflegen → Konfiguration in vier Schritten erstellen → Anfrage absenden → bei Bedarf Support-Ticket.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span class="kicker">Klarframe · Partner Portal</span>
+      <h2>Klare Strukturen. Ehrlich, offen & transparent.</h2>
+      <p class="lead">Sie kennen jetzt alle Werkzeuge des Portals — vom Mini-CRM über den Konfigurator bis zum Support. Bei Fragen erreichen Sie uns jederzeit über ein Support-Ticket.</p>
+      <p class="confidential">Vertraulich · Nur für Vertriebspartner · Klarframe SL</p>
+    </div>
+  </footer>
+</body>
+</html>

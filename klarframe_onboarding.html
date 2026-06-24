@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onboarding Klarframe</title>
+  <style>
+    :root {
+      --bg: #f6f3ef;
+      --card: #ffffff;
+      --dark: #151515;
+      --muted: #6b6b6b;
+      --line: #e4ded6;
+      --accent: #11bde8;
+      --accent-dark: #072333;
+      --blue: #10182f;
+      --soft: #eef7fa;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      min-height: 78vh;
+      display: grid;
+      place-items: center;
+      padding: 80px 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(17,189,232,.25), transparent 32%),
+        linear-gradient(135deg, #07111d 0%, #11182e 50%, #0b0b0d 100%);
+      color: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -35% -10%;
+      height: 45%;
+      background: var(--bg);
+      transform: rotate(-3deg);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: rgba(255,255,255,.78);
+      font-size: 14px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(46px, 8vw, 96px);
+      line-height: .95;
+      margin: 26px 0 22px;
+      letter-spacing: -0.06em;
+    }
+
+    .hero p {
+      max-width: 720px;
+      font-size: clamp(18px, 2.3vw, 25px);
+      color: rgba(255,255,255,.82);
+      margin: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.9);
+      font-size: 14px;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .label {
+      color: var(--accent);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 13px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      margin: 0;
+    }
+
+    h3 {
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+    }
+
+    .lead {
+      font-size: 19px;
+      color: #3d3d3d;
+      max-width: 850px;
+      margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 28px;
+      box-shadow: 0 24px 60px rgba(22, 18, 14, .06);
+    }
+
+    .dark-card {
+      background: var(--blue);
+      color: white;
+      border-color: rgba(255,255,255,.08);
+    }
+
+    .dark-card p,
+    .dark-card li { color: rgba(255,255,255,.78); }
+
+    ul {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .org {
+      display: grid;
+      gap: 14px;
+    }
+
+    .org-row {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .org-row:first-child { border-top: 0; padding-top: 0; }
+
+    .role {
+      font-weight: 800;
+      color: var(--accent-dark);
+    }
+
+    .markets {
+      columns: 2;
+      column-gap: 36px;
+    }
+
+    .markets li { break-inside: avoid; }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+    }
+
+    .year {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid var(--line);
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      background: #f0f8fb;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #345;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    .agenda {
+      counter-reset: agenda;
+      display: grid;
+      gap: 14px;
+    }
+
+    .agenda-item {
+      counter-increment: agenda;
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .agenda-item::before {
+      content: "0" counter(agenda);
+      color: var(--accent);
+      font-size: 26px;
+      font-weight: 900;
+    }
+
+    .quote {
+      font-size: clamp(26px, 4vw, 44px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      font-weight: 850;
+      margin: 0;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .example {
+      background: #f8fbfc;
+      border-left: 5px solid var(--accent);
+      padding: 22px;
+      border-radius: 18px;
+      color: #2d2d2d;
+    }
+
+    footer {
+      background: #0b0b0d;
+      color: white;
+      padding: 70px 0;
+      margin-top: 40px;
+    }
+
+    footer p {
+      color: rgba(255,255,255,.72);
+      margin: 10px 0 0;
+    }
+
+    @media (max-width: 860px) {
+      .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
+      .org-row, .timeline-item, .agenda-item { grid-template-columns: 1fr; }
+      .markets { columns: 1; }
+      section { padding: 52px 0; }
+    }
+
+    @media print {
+      header { min-height: auto; padding: 60px 0; }
+      section { break-inside: avoid; }
+      .card, table, .timeline-item, .agenda-item { box-shadow: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="page hero">
+      <span class="eyebrow">Onboarding · Klarframe</span>
+      <h1>Klar denken. Intelligent wachsen.</h1>
+      <p>Ein strukturiertes Onboarding für Vertrieb, Partner, Märkte und Gesprächsführung bei Klarframe.</p>
+      <div class="meta">
+        <span class="pill">Marcel Anwander</span>
+        <span class="pill">Klarframe SL</span>
+        <span class="pill">KI-Systeme · Voice Agents · Automatisierung</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Vision</span>
+        <h2>KI soll Menschen nicht ersetzen, sondern befähigen.</h2>
+      </div>
+      <div class="card">
+        <p class="lead">
+          Wir gestalten eine Zukunft, in der Künstliche Intelligenz Menschen unterstützt, über sich hinauszuwachsen.
+          Unsere Vision ist es, intelligente Systeme zu entwickeln, die kreativ, verantwortungsvoll und transparent agieren – und dabei echten Mehrwert für Gesellschaft, Wirtschaft und Umwelt schaffen.
+        </p>
+        <p>
+          Wir glauben an eine Welt, in der Technologie intuitiv, zugänglich und vertrauenswürdig ist. Durch den Einsatz modernster KI ermöglichen wir Unternehmen und Menschen, komplexe Herausforderungen einfacher zu lösen, fundiertere Entscheidungen zu treffen und neue Potenziale zu erschließen.
+        </p>
+        <p>
+          Innovation bedeutet für uns nicht nur Fortschritt, sondern auch Verantwortung. Deshalb setzen wir auf ethische Prinzipien, Datenschutz und nachhaltige Entwicklung als festen Bestandteil unserer Technologien.
+        </p>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Neugründung</span>
+        <h2>Aus Deseo.ai wird Klarframe.com.</h2>
+      </div>
+      <div class="card dark-card">
+        <p class="quote">Klarframe steht für klare Systeme, transparente Prozesse und KI-Lösungen, die Unternehmen im Alltag wirklich entlasten.</p>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Mission</span>
+        <h2>Kommunikation neu denken.</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Was wir entwickeln</h3>
+          <p>
+            Unsere Mission ist es, intelligente Technologien zu entwickeln, die Menschen und Organisationen befähigen, schneller zu denken, klarer zu kommunizieren und bessere Entscheidungen zu treffen.
+          </p>
+          <p>
+            Wir entwickeln eine neue Generation KI-gestützter Voice Agents und Meeting Agents, die Gespräche verstehen, Inhalte präzise erfassen und automatisch in strukturierte Erkenntnisse übersetzen.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Was unsere Systeme leisten</h3>
+          <ul>
+            <li>Wertvolle Zeit sparen</li>
+            <li>Gespräche effizient protokollieren</li>
+            <li>Follow-ups klar priorisieren</li>
+            <li>Prozesse automatisieren</li>
+            <li>Produktivität freisetzen</li>
+            <li>Datenschutz und Verantwortung in den Mittelpunkt stellen</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Struktur & Organisation</span>
+        <h2>Rollen bei Klarframe.</h2>
+      </div>
+      <div class="card org">
+        <div class="org-row"><div class="role">CEO</div><div>Michael Vogel</div></div>
+        <div class="org-row"><div class="role">CFO</div><div>Michael Vogel</div></div>
+        <div class="org-row"><div class="role">CTO</div><div>Oliver Condurache</div></div>
+        <div class="org-row"><div class="role">Technischer Support</div><div>Oliver Condurache</div></div>
+        <div class="org-row"><div class="role">CSO</div><div>Michael Vogel</div></div>
+        <div class="org-row"><div class="role">D-A-CH</div><div>André Sommer</div></div>
+        <div class="org-row"><div class="role">Balearen & Festland Spanien</div><div>Marcel Anwander</div></div>
+        <div class="org-row"><div class="role">Südtirol & Italien</div><div>Michael Lantthaler und Benjamin Schupfer</div></div>
+        <div class="org-row"><div class="role">Freelancer / Produktmanagement</div><div>Noch nicht benannt</div></div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Website</span>
+        <h2>Nicht noch ein Tool – ein System, das mit Ihnen wächst.</h2>
+      </div>
+      <div class="grid two">
+        <div class="card dark-card">
+          <h3>Ganzheitlich gedacht, nicht isoliert gebaut.</h3>
+          <p>Sprache, Daten, Content, CRM und Dashboards werden nicht als separate Tools verstanden, sondern als gemeinsame intelligente Schicht Ihres Unternehmens.</p>
+        </div>
+        <div class="card">
+          <h3>Produkte zum Download</h3>
+          <ul>
+            <li>Smart Websites</li>
+            <li>Angebots-Add-on-Tool</li>
+            <li>Executive Concierge</li>
+            <li>Video Avatar</li>
+            <li>Outbound Voice Agent</li>
+            <li>Inbound Voice Agent</li>
+            <li>Meeting Agent</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Vertrieb aktuell</span>
+        <h2>Regionale Verantwortung.</h2>
+      </div>
+      <div class="grid three">
+        <div class="card">
+          <h3>Team 1: D-A-CH</h3>
+          <p><strong>Team Sommer</strong></p>
+          <ul>
+            <li>Deutschland</li>
+            <li>Österreich</li>
+            <li>Schweiz</li>
+          </ul>
+          <p class="note">Zielgröße: 1.000 Kunden pro Destination × 8 Produkte im Mix = 8.000 Lizenzen pro Destination innerhalb von 3–5 Jahren.</p>
+        </div>
+        <div class="card">
+          <h3>Team 2: Südtirol & Italien</h3>
+          <p><strong>Team Lantthaler & Schupfer</strong></p>
+          <ul>
+            <li>Bozen, Meran, Brixen, Sterzing, Trient</li>
+            <li>Riva, Verona, Mailand, Bologna</li>
+            <li>Cortina</li>
+          </ul>
+          <p class="note">Zielgröße: 8.000 Lizenzen pro Destination innerhalb von 3–5 Jahren.</p>
+        </div>
+        <div class="card">
+          <h3>Team 3: Balearen & Festland Spanien</h3>
+          <p><strong>Team Anwander</strong></p>
+          <ul>
+            <li>Mallorca, Ibiza, Menorca</li>
+            <li>Gran Canaria, Fuerteventura, Teneriffa, Lanzarote</li>
+            <li>Barcelona, Madrid, Bilbao, Valencia</li>
+          </ul>
+          <p class="note">Zielgröße: 8.000 Lizenzen pro Destination innerhalb von 3–5 Jahren.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Märkte</span>
+        <h2>Branchen & Zielmärkte.</h2>
+      </div>
+      <div class="card">
+        <ul class="markets">
+          <li>Lebensmittelindustrie</li>
+          <li>Textilindustrie</li>
+          <li>Verpackungsindustrie</li>
+          <li>Holzverarbeitende Industrie</li>
+          <li>Möbelindustrie</li>
+          <li>Logistikindustrie</li>
+          <li>Maschinenbau</li>
+          <li>Zerspanendes Gewerbe</li>
+          <li>Hotellerie</li>
+          <li>Gastronomie</li>
+          <li>Luftfahrt</li>
+          <li>Papierindustrie</li>
+          <li>E-Commerce</li>
+          <li>Serviceindustrie</li>
+          <li>Pharmaindustrie</li>
+          <li>Automobilbranche</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Expansion</span>
+        <h2>Noch zu erschließende Länder.</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="year">2028</div>
+          <div><strong>Frankreich & Belgien</strong><br />Kooperationspartner für Paris, Lyon und Antwerpen.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2029</div>
+          <div><strong>Polen & Tschechien</strong><br />Kooperationspartner für Warschau, Krakau und Prag.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2030</div>
+          <div><strong>Niederlande</strong><br />Kooperationspartner für Amsterdam, Rotterdam, Den Haag und Utrecht.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2030</div>
+          <div><strong>Portugal</strong><br />Kooperationspartner für Lissabon, Porto und Faro.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Messen</span>
+        <h2>Relevante Messen in Europa.</h2>
+      </div>
+      <div class="grid three">
+        <div class="card">
+          <h3>D-A-CH</h3>
+          <ul>
+            <li>Internorga, Hamburg</li>
+            <li>Intergastra, Stuttgart</li>
+            <li>Anuga, Köln</li>
+            <li>Bar Convent, Berlin</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Italien</h3>
+          <ul>
+            <li>TuttoFood, Mailand</li>
+            <li>SIGEP, Rimini</li>
+            <li>Cibus Tec, Rimini</li>
+            <li>Hospitality, Riva del Garda</li>
+            <li>Host Milano, Mailand</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Spanien / Balearen</h3>
+          <ul>
+            <li>Madrid Fusión, Madrid</li>
+            <li>Salón Gourmets, Madrid</li>
+            <li>Hostelco, Barcelona</li>
+            <li>Gastrónoma, Valencia</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Kommunikation</span>
+        <h2>SMS, WhatsApp und Mailing.</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>SMS-Pakete</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Paket</th>
+                <th>Volumen</th>
+                <th>Preis pro SMS</th>
+                <th>Verkaufspreis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>SMS-Paket 100</td><td>100 SMS</td><td>0,29 €</td><td>29,90 €</td></tr>
+              <tr><td>SMS-Paket 200</td><td>200 SMS</td><td>0,19 €</td><td>37,90 €</td></tr>
+              <tr><td>SMS-Paket 300</td><td>300 SMS</td><td>0,17 €</td><td>51,90 €</td></tr>
+              <tr><td>SMS-Paket 400</td><td>400 SMS</td><td>0,16 €</td><td>63,90 €</td></tr>
+              <tr><td>SMS-Paket 500</td><td>500 SMS</td><td>0,15 €</td><td>75,90 €</td></tr>
+            </tbody>
+          </table>
+          <p class="note">Alle Preise netto, sofern nicht anders vereinbart. Abrechnung pro SMS-Segment.</p>
+        </div>
+        <div class="card">
+          <h3>WhatsApp & Mailing</h3>
+          <p>WhatsApp und Mailing werden über den Kundenaccount abgebildet und per Schnittstelle in das Produkt eingebunden.</p>
+          <ul>
+            <li>Als Basic-Funktion im Produkt enthalten</li>
+            <li>Nachhaltig für die nächste Generation</li>
+            <li>Automatische Bewertung und Benefit-Einbindung möglich</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Training</span>
+        <h2>Klare Strukturen. Ehrlich. Offen. Transparent.</h2>
+      </div>
+      <div class="agenda">
+        <div class="agenda-item">Vorstellungsrunde und gegenseitiges Kennenlernen</div>
+        <div class="agenda-item">Eröffnung eines Gesprächs, Ansprache und Anschreiben eines Unternehmens</div>
+        <div class="agenda-item">Kurze Informationssammlung zum jeweiligen Unternehmen</div>
+        <div class="agenda-item">Gesprächsführung</div>
+        <div class="agenda-item">Follow-up und Closing</div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Ansprache</span>
+        <h2>Was bei der Unternehmensansprache wichtig ist.</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Grundsätze</h3>
+          <ul>
+            <li>Den kleinsten gemeinsamen Nenner zwischen Unternehmen und Produkt beziehungsweise Dienstleistung finden.</li>
+            <li>Mit Lösungen kommen – nicht nur mit Fragen.</li>
+            <li>Relevante Trigger-Themen ansprechen und den Lösungsansatz klar mit Klarframe verbinden.</li>
+            <li>Aktiv zuhören und Stichworte notieren.</li>
+            <li>LinkedIn-Profil und Website des Unternehmens gezielt nutzen.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Mögliche Trigger</h3>
+          <ul>
+            <li>Smarte Personalkostenreduzierung</li>
+            <li>Liquidität erhöhen</li>
+            <li>Prozessautomatisierung</li>
+            <li>Nachhaltigkeit</li>
+            <li>Ganzheitliches und abteilungsübergreifendes Arbeiten</li>
+            <li>Zeit sinnvoll nutzen</li>
+            <li>Weniger Meetings</li>
+            <li>Remote Work, Front Desk und Backoffice</li>
+            <li>Sichtbarkeit</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Beispielansprachen</span>
+        <h2>Klassisch, modern und förmlich.</h2>
+      </div>
+      <div class="grid three">
+        <div class="card">
+          <h3>Klassisch & prägnant</h3>
+          <div class="example">
+            Heute beschäftigen sich fast alle Unternehmen mit Künstlicher Intelligenz – und viele behaupten, das beste Produkt zu haben. Gerne zeige ich Ihnen in einem persönlichen Termin oder via Zoom, wie Klarframe den Unterschied macht: vertrauensvoll, ehrlich und transparent.
+          </div>
+        </div>
+        <div class="card">
+          <h3>Modern</h3>
+          <div class="example">
+            Vielleicht haben Sie sich auch schon gefragt, warum aktuell alle über KI, AI und BI sprechen – aber nur wenige konkrete Lösungswege zeigen. Genau hier setzen wir an: verständlich, praxisnah und ohne unnötige Komplexität. Wenn das für Sie spannend ist, lassen Sie uns gerne einen Termin vereinbaren.
+          </div>
+        </div>
+        <div class="card">
+          <h3>Förmlich & informativ</h3>
+          <div class="example">
+            Gerade in technologieorientierten Unternehmen zeigt sich, wie wichtig klare Prozesse, Automatisierung und effiziente Kommunikation geworden sind. Klarframe unterstützt Unternehmen dabei, Potenziale in einzelnen Abteilungen zu erkennen und konkrete Lösungen daraus abzuleiten – unverbindlich, strukturiert und praxisnah.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Recherche</span>
+        <h2>Informationen zum Unternehmen sind entscheidend.</h2>
+      </div>
+      <div class="card">
+        <p class="lead">Eine gute Vorbereitung erhöht die Chance auf ein relevantes Gespräch deutlich.</p>
+        <ul class="markets">
+          <li>Umsatz</li>
+          <li>Anzahl der Mitarbeitenden</li>
+          <li>Nationale oder internationale Aufstellung</li>
+          <li>Entscheiderinnen und Entscheider</li>
+          <li>Gewünschte Gesprächspartner</li>
+          <li>Produktportfolio</li>
+          <li>Mögliche Ansatzpunkte</li>
+          <li>Vision und Mission des Unternehmens</li>
+          <li>Bereits genutzte Produkte oder Systeme</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Gesprächsführung</span>
+        <h2>Strukturiert, vorbereitet und lösungsorientiert.</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Aufbau des Gesprächs</h3>
+          <ul>
+            <li>Kurze Vorstellung der eigenen Person und von Klarframe.</li>
+            <li>Erklären, warum genau dieses Unternehmen kontaktiert wurde.</li>
+            <li>Dem Kunden Raum geben, sein Unternehmen und Portfolio vorzustellen.</li>
+            <li>Nicht direkt mit dem Produkt starten, sondern Synergien und Übereinstimmungen schaffen.</li>
+            <li>USP und Nutzenargumente jederzeit griffbereit haben.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Ziel des Gesprächs</h3>
+          <ul>
+            <li>Den richtigen Ansprechpartner identifizieren.</li>
+            <li>Das Gespräch so vorbereiten, dass ein sinnvoller Anschlusstermin entsteht.</li>
+            <li>Mit einer Checkliste arbeiten, um professionell, fokussiert und vollständig zu bleiben.</li>
+            <li>Offene Punkte klar festhalten und nächste Schritte vereinbaren.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Follow-up & Closing</span>
+        <h2>Nachfassen ist Wertschätzung.</h2>
+      </div>
+      <div class="grid three">
+        <div class="card">
+          <h3>Wann?</h3>
+          <ul>
+            <li>Innerhalb von maximal 72 Stunden nach dem Call.</li>
+            <li>Solange Informationen und Eindrücke noch frisch sind.</li>
+            <li>Wenn Neugier und Veränderungsbereitschaft spürbar sind.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Wie?</h3>
+          <ul>
+            <li>Noch einmal auf zentrale Themen eingehen.</li>
+            <li>Offene Fragen klären.</li>
+            <li>Sicherheit durch Onboarding, Einlernprogramm und Projektstart vermitteln.</li>
+            <li>Den nächsten Termin kurz telefonisch oder per E-Mail bestätigen.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Warum?</h3>
+          <ul>
+            <li>Vertrauen entsteht durch Verbindlichkeit.</li>
+            <li>Professionelles Nachfassen zeigt echtes Interesse.</li>
+            <li>Das Closing wird vorbereitet, statt erzwungen.</li>
+            <li>Chancen werden aufgezeigt, ohne zu drängen.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Closing in 4 Punkten</span>
+        <h2>So wird der Abschluss vorbereitet.</h2>
+      </div>
+      <div class="grid four">
+        <div class="card"><h3>1</h3><p>Das Follow-up aktiv ansprechen, weil es für die Abschlussquote entscheidend ist.</p></div>
+        <div class="card"><h3>2</h3><p>Fragen, ob noch etwas offen ist, das die finale Entscheidung beeinflusst.</p></div>
+        <div class="card"><h3>3</h3><p>Sicherstellen, dass die entscheidende Person informiert ist und beim nächsten Gespräch teilnimmt.</p></div>
+        <div class="card"><h3>4</h3><p>Den Gesprächspartner kurz per Telefon oder E-Mail an den anstehenden Termin erinnern.</p></div>
+      </div>
+    </section>
+
+    <section class="page">
+      <div class="section-title">
+        <span class="label">Motivation</span>
+        <h2>B2B-Sales ist kein Sprint.</h2>
+      </div>
+      <div class="card dark-card">
+        <p class="quote">Ein Abschluss im B2B braucht im Schnitt mehrere Kontakte. Wenn du nach zwei Anläufen aufgibst, bist du nicht schlecht – du bist einfach zu früh raus.</p>
+        <p>
+          Viele Deals scheitern nicht am Preis und nicht am Produkt. Sie scheitern daran, dass zu früh aufgegeben wird oder das Problem des Kunden nicht tief genug verstanden wurde.
+        </p>
+        <p>
+          Dranbleiben ist keine Belästigung. Dranbleiben ist Professionalität – solange es wertschätzend, relevant und lösungsorientiert geschieht.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="page">
+      <h2>Vielen Dank für die Aufmerksamkeit.</h2>
+      <p>Viel Erfolg in unserer Zusammenarbeit.</p>
+      <p><strong>Michael Vogel</strong><br />CEO Klarframe SL</p>
+    </div>
+  </footer>
+</body>
+</html>
